@@ -1,0 +1,26 @@
+{
+  "name": "react-safe-render",
+  "version": "0.0.0",
+  "description": "Provides a safety check to keep components from breaking entire application and provides a means of reacting to failed renders",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skiano/react-safe-render.git"
+  },
+  "keywords": [
+    "react",
+    "error",
+    "handling",
+    "render",
+    "component"
+  ],
+  "author": "Greg Skiano",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/skiano/react-safe-render/issues"
+  },
+  "homepage": "https://github.com/skiano/react-safe-render"
+}
