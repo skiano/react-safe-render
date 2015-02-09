@@ -5,8 +5,12 @@ jest.dontMock('../index');
 var React = require('react/addons'),
   TestUtils = React.addons.TestUtils;
 
-var safeRender = require('../index');
-    safeRender(React);
+var errorHandler = jest.genMockFn();
+
+// protect render
+require('../index')(React, {
+  errorHandler: errorHandler
+});
 
 var ExampleComponent = React.createClass({
   render: function () {
@@ -28,12 +32,29 @@ describe('Safe Render', function () {
 
   it('should catch errors in render', function () {
 
-
     var element = (<ExampleComponent hasBadData/>);
 
     expect(function () {
       TestUtils.renderIntoDocument(element);
     }).not.toThrow();
+
+  });
+
+  it('should catch errors in render', function () {
+
+    errorHandler.mockClear();
+
+    var element = (<ExampleComponent hasBadData/>);
+    
+    TestUtils.renderIntoDocument(element);
+
+    expect(errorHandler.mock.calls[0][0]).toEqual({
+      displayName: 'ExampleComponent',
+      props: {
+        hasBadData: true
+      },
+      error: new Error('Bad Data')
+    });
 
   });
 

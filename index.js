@@ -1,6 +1,9 @@
 
 module.exports = function safeRender (React, config) {
 
+  config = config || {};
+  config.errorHandler = config.errorHandler || function () {};
+
   if (React.hasOwnProperty('unsafeCreateClass')) { return; }
 
   React.unsafeCreateClass = React.createClass;
@@ -14,8 +17,14 @@ module.exports = function safeRender (React, config) {
       try {
         return unsafeRender.apply(this, arguments);
       } catch (e) {
+        
         // TODO: allow interesting handling from user
-        console.warn('Render Failure:', componentClass.displayName, this.props);
+        config.errorHandler({
+          displayName: componentClass.displayName,
+          props: this.props,
+          error: e
+        });
+
         return null;
       }
     };
