@@ -1,6 +1,6 @@
 {
   "name": "react-safe-render",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Provides a safety check to keep components from breaking entire application and provides a means of reacting to failed renders",
   "main": "index.js",
   "scripts": {
