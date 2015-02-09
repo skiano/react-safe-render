@@ -12,10 +12,11 @@ module.exports = function safeRender (React, config) {
 
     spec.render = function () {
       try {
-        unsafeRender.apply(this, arguments);
+        return unsafeRender.apply(this, arguments);
       } catch (e) {
         // TODO: allow interesting handling from user
-        console.warn('Render Failure:', componentClass.displayName, this.props)
+        console.warn('Render Failure:', componentClass.displayName, this.props);
+        return null;
       }
     };
 
@@ -24,8 +25,8 @@ module.exports = function safeRender (React, config) {
 
     return componentClass;
 
-  }
+  };
 
   return React;
 
-}
+};
