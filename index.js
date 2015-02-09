@@ -1,4 +1,6 @@
 
+// TODO: protect errors in error handler?
+
 module.exports = function safeRender (React, config) {
 
   config = config || {};
@@ -17,14 +19,11 @@ module.exports = function safeRender (React, config) {
       try {
         return unsafeRender.apply(this, arguments);
       } catch (e) {
-        
-        // TODO: allow interesting handling from user
         config.errorHandler({
           displayName: componentClass.displayName,
           props: this.props,
           error: e
         });
-
         return null;
       }
     };
