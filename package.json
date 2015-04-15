@@ -31,7 +31,7 @@
   "homepage": "https://github.com/skiano/react-safe-render",
   "devDependencies": {
     "jest": "^0.1.37",
-    "react": "^0.12.2",
+    "react": "^0.13.0",
     "jest-cli": "^0.2.1",
     "react-tools": "^0.12.2"
   }
