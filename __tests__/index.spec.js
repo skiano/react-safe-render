@@ -21,8 +21,29 @@ var ExampleComponent = React.createClass({
     throwIf('willMountError',this.props);
   },
 
+  componentDidMount: function () {
+    throwIf('didMountError',this.props);
+  },
+
   componentWillReceiveProps: function () {
     throwIf('recievePropsError',this.props);
+  },
+
+  shouldComponentUpdate: function () {
+    throwIf('shouldUpdateError',this.props);
+    return true;
+  },
+
+  componentWillUpdate: function () {
+    throwIf('willUpdateError',this.props);
+  },
+
+  componentDidUpdate: function () {
+    throwIf('didUpdateError',this.props);
+  },
+
+  componentWillUnmount: function () {
+    throwIf('unmountError',this.props);
   },
 
   render: function () {
@@ -80,7 +101,7 @@ describe('Safe Render', function () {
     
     var stub = TestUtils.renderIntoDocument(<ExampleComponent recievePropsError/>);
 
-    stub.setProps({new: true});
+    stub.setProps({A: true});
 
     expect(errorHandler).lastCalledWith({
       displayName: 'ExampleComponent',
@@ -89,6 +110,90 @@ describe('Safe Render', function () {
         recievePropsError: true
       },
       error: new Error('recievePropsError')
+    });
+  });
+
+  it('should catch errors in componentDidMount', function () {
+    errorHandler.mockClear();
+    
+    var stub = TestUtils.renderIntoDocument(<ExampleComponent didMountError/>);
+
+    expect(errorHandler).lastCalledWith({
+      displayName: 'ExampleComponent',
+      method: 'componentDidMount',
+      props: {
+        didMountError: true
+      },
+      error: new Error('didMountError')
+    });
+  });
+
+  it('should catch errors in shouldComponentUpdate', function () {
+    errorHandler.mockClear();
+    
+    var stub = TestUtils.renderIntoDocument(<ExampleComponent shouldUpdateError/>);
+
+    stub.setProps({A: true});
+
+    expect(errorHandler).lastCalledWith({
+      displayName: 'ExampleComponent',
+      method: 'shouldComponentUpdate',
+      props: {
+        shouldUpdateError: true
+      },
+      error: new Error('shouldUpdateError')
+    });
+  });
+
+  it('should catch errors in componentWillUpdate', function () {
+    errorHandler.mockClear();
+    
+    var stub = TestUtils.renderIntoDocument(<ExampleComponent willUpdateError/>);
+
+    stub.setProps({A: true});
+
+    expect(errorHandler).lastCalledWith({
+      displayName: 'ExampleComponent',
+      method: 'componentWillUpdate',
+      props: {
+        willUpdateError: true
+      },
+      error: new Error('willUpdateError')
+    });
+  });
+
+  it('should catch errors in componentDidUpdate', function () {
+    errorHandler.mockClear();
+    
+    var stub = TestUtils.renderIntoDocument(<ExampleComponent didUpdateError/>);
+
+    stub.setProps({A: true});
+
+    expect(errorHandler).lastCalledWith({
+      displayName: 'ExampleComponent',
+      method: 'componentDidUpdate',
+      props: {
+        didUpdateError: true,
+        A: true
+      },
+      error: new Error('didUpdateError')
+    });
+  });
+
+  it('should catch errors in componentWillUnmount', function () {
+    errorHandler.mockClear();
+    
+    var node = global.document.createElement('DIV');
+    React.render(<ExampleComponent unmountError/>, node);
+    React.unmountComponentAtNode(node);
+
+    expect(errorHandler).lastCalledWith({
+      displayName: 'ExampleComponent',
+      method: 'componentWillUnmount',
+      props: {
+        unmountError: true
+      },
+      error: new Error('unmountError')
     });
   });
 });
