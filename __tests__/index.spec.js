@@ -113,6 +113,10 @@ describe('Safe Render', function () {
       props: {
         recievePropsError: true
       },
+      arguments: [
+        {A:true, recievePropsError: true},
+        {}
+      ],
       error: new Error('recievePropsError')
     });
   });
@@ -160,6 +164,11 @@ describe('Safe Render', function () {
       props: {
         shouldUpdateError: true
       },
+      arguments: [
+        {A: true, shouldUpdateError: true},
+        {},
+        {}
+      ],
       error: new Error('shouldUpdateError')
     });
   });
@@ -177,6 +186,11 @@ describe('Safe Render', function () {
       props: {
         willUpdateError: true
       },
+      arguments: [
+        {A: true, willUpdateError: true},
+        {},
+        {}
+      ],
       error: new Error('willUpdateError')
     });
   });
@@ -195,6 +209,11 @@ describe('Safe Render', function () {
         didUpdateError: true,
         A: true
       },
+      arguments: [
+        {didUpdateError: true},
+        {},
+        {}
+      ],
       error: new Error('didUpdateError')
     });
   });

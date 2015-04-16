@@ -21,12 +21,16 @@ module.exports = function safeRender (React, config) {
         try {
           return unsafe.apply(this, arguments);
         } catch (e) {
-          config.errorHandler({
+          var report = {
             displayName: componentClass.displayName,
             method: method,
             props: this.props,
             error: e
-          });
+          };
+          if (arguments.length > 0) {
+            report.arguments = arguments;
+          }
+          config.errorHandler(report);
           return typeof returnFn === 'function' ? returnFn.apply(this, arguments) : null;
         }
       };
