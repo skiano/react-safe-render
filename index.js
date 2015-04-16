@@ -36,10 +36,11 @@ module.exports = function safeRender (React, config) {
     wrap('componentWillMount');
     wrap('componentDidMount');
     wrap('componentWillReceiveProps');
-    wrap('shouldComponentUpdate', safeshouldComponentUpdate);
+    wrap('shouldComponentUpdate', safeShouldComponentUpdate);
     wrap('componentWillUpdate');
     wrap('componentDidUpdate');
     wrap('componentWillUnmount');
+    wrap('getInitialState', safeGetInitial);
 
     // store ref to class in closure so error reporting can be more specific
     componentClass = React.unsafeCreateClass.apply(React, arguments);
@@ -50,6 +51,10 @@ module.exports = function safeRender (React, config) {
   return React;
 };
 
-function safeshouldComponentUpdate() {
+function safeShouldComponentUpdate() {
   return true;
+}
+
+function safeGetInitial() {
+  return {};
 }

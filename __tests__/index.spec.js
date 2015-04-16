@@ -17,6 +17,11 @@ function throwIf(name, props) {
 }
 
 var ExampleComponent = React.createClass({
+  getInitialState: function () {
+    throwIf('stateError',this.props);
+    return {};
+  },
+
   componentWillMount: function () {
     throwIf('willMountError',this.props);
   },
@@ -53,7 +58,6 @@ var ExampleComponent = React.createClass({
 });
 
 describe('Safe Render', function () {
-  
   it('should return the element normally if there are no errors', function () {
     var element = (<ExampleComponent/>);
     var mounted = TestUtils.renderIntoDocument(element);
@@ -62,7 +66,7 @@ describe('Safe Render', function () {
 
   it('should catch errors in render', function () {
     expect(function () {
-      TestUtils.renderIntoDocument(<ExampleComponent renderError/>);
+      TestUtils.renderIntoDocument(<ExampleComponent renderError didMountError/>);
     }).not.toThrow();
   });
 
@@ -116,7 +120,7 @@ describe('Safe Render', function () {
   it('should catch errors in componentDidMount', function () {
     errorHandler.mockClear();
     
-    var stub = TestUtils.renderIntoDocument(<ExampleComponent didMountError/>);
+    TestUtils.renderIntoDocument(<ExampleComponent didMountError/>);
 
     expect(errorHandler).lastCalledWith({
       displayName: 'ExampleComponent',
@@ -125,6 +129,21 @@ describe('Safe Render', function () {
         didMountError: true
       },
       error: new Error('didMountError')
+    });
+  });
+
+  it('should catch errors in getInitialState', function () {
+    errorHandler.mockClear();
+    
+    TestUtils.renderIntoDocument(<ExampleComponent stateError/>);
+
+    expect(errorHandler).lastCalledWith({
+      displayName: 'ExampleComponent',
+      method: 'getInitialState',
+      props: {
+        stateError: true
+      },
+      error: new Error('stateError')
     });
   });
 
