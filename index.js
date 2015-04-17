@@ -30,8 +30,14 @@ module.exports = function safeRender (React, config) {
           if (arguments.length > 0) {
             report.arguments = arguments;
           }
-          config.errorHandler(report);
-          return typeof returnFn === 'function' ? returnFn.apply(this, arguments) : null;
+
+          try {
+            config.errorHandler(report);
+            return returnFn ? returnFn() : null;  
+          } catch (e) {
+            console.error('[Error Handler]',e.stack);
+            return returnFn ? returnFn() : null;
+          }
         }
       };
     }
