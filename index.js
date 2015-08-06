@@ -8,8 +8,8 @@ module.exports = function safeRender (React, config) {
   React.unsafeCreateClass = React.createClass;
 
   React.createClass = function (spec) {
-    var mem = {componentClass: {}};
-    var wrapBound = wrap.bind(null, spec, mem, config);
+    var original = {componentClass: {}};
+    var wrapBound = wrap.bind(null, spec, original, config);
 
     [ 'render',
       'componentWillMount',
@@ -25,14 +25,14 @@ module.exports = function safeRender (React, config) {
     wrapBound('shouldComponentUpdate', safeShouldComponentUpdate);
     wrapBound('getInitialState', safeGetInitial);
 
-    mem.componentClass = React.unsafeCreateClass.apply(React, arguments);
-    return mem.componentClass;
+    original.componentClass = React.unsafeCreateClass.apply(React, arguments);
+    return original.componentClass;
   };
 
   return React;
 };
 
-function wrap(spec, mem, config, method, returnFn) {
+function wrap(spec, original, config, method, returnFn) {
   if (!spec.hasOwnProperty(method)) { return; }
 
   var unsafe = spec[method];
@@ -41,8 +41,12 @@ function wrap(spec, mem, config, method, returnFn) {
     try {
       return unsafe.apply(this, arguments);
     } catch (e) {
+      if (original.componentClass.bubbleErrors) {
+        throw e;
+      }
+
       var report = {
-        displayName: mem.componentClass.displayName,
+        displayName: original.componentClass.displayName,
         method: method,
         props: this.props,
         error: e

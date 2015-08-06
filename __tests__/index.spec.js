@@ -238,4 +238,25 @@ describe('Safe Render', function () {
       error: new Error('unmountError')
     });
   });
+
+  it('should allow component to cancel error handling', function () {
+    errorHandler.mockClear();
+
+    var NoHandle = React.createClass({
+      statics: {
+        bubbleErrors: true
+      },
+
+      render: function () {
+        throw new Error('fail');
+        return <div/>;
+      }
+    });
+    
+    expect(function () {
+      var node = global.document.createElement('DIV');
+      React.render(<NoHandle/>, node);
+      React.unmountComponentAtNode(node);
+    }).toThrow();
+  });
 });
