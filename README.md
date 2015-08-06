@@ -29,6 +29,22 @@ require('react-safe-render')(React, {
 
 At the moment this only works for components made via React.createClass(). It will not catch errors if you use the Component class directly.
 
+## Disable for a single component
+
+If you want to disable the error handler for a component, you can use a static property
+
+```js
+React.createClass({
+  statics: {
+    bubbleErrors: true
+  },
+
+  // ...
+
+});
+
+```
+
 ## License
 
 [MIT](/LICENSE)
