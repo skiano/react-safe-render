@@ -1,6 +1,6 @@
 {
   "name": "react-safe-render",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Defensive error handling in component lifecycle",
   "main": "index.js",
   "scripts": {
