@@ -1,7 +1,7 @@
 {
   "name": "react-safe-render",
   "version": "1.0.1",
-  "description": "Provides a safety check to keep components from breaking entire application and provides a means of reacting to failed renders",
+  "description": "Defensive error handling in component lifecycle",
   "main": "index.js",
   "scripts": {
     "test": "jest"
