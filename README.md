@@ -25,7 +25,7 @@ require('react-safe-render')(React, {
 
 ```
 
-## Note on ES2015
+## Note on es2015
 
 At the moment this only works for components made via React.createClass(). It will not catch errors if you use the Component class directly.
 
