@@ -1,4 +1,4 @@
-# React Safe Render [![Build Status](https://secure.travis-ci.org/skianog/react-safe-render.png)](http://travis-ci.org/skianog/react-safe-render) [![NPM version](https://badge.fury.io/js/react-safe-render.svg)](http://badge.fury.io/js/react-safe-render)
+# React Safe Render [![Build Status](https://secure.travis-ci.org/skiano/react-safe-render.png)](http://travis-ci.org/skiano/react-safe-render) [![NPM version](https://badge.fury.io/js/react-safe-render.svg)](http://badge.fury.io/js/react-safe-render)
 
 
 # react-safe-render
