@@ -47,6 +47,7 @@ function wrap(spec, mem, config, method, returnFn) {
         props: this.props,
         error: e
       };
+
       if (arguments.length > 0) {
         report.arguments = arguments;
       }
