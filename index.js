@@ -1,6 +1,4 @@
 
-// TODO: protect errors in error handler?
-
 module.exports = function safeRender (React, config) {
   config = config || {};
   config.errorHandler = config.errorHandler || function () {};
@@ -35,7 +33,7 @@ module.exports = function safeRender (React, config) {
             config.errorHandler(report);
             return returnFn ? returnFn() : null;
           } catch (e) {
-            console.error('[Error Handler]',e.stack);
+            console.error('[Error Handler]', e.stack);
             return returnFn ? returnFn() : null;
           }
         }
