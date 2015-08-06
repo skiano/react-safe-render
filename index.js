@@ -33,7 +33,7 @@ module.exports = function safeRender (React, config) {
 
           try {
             config.errorHandler(report);
-            return returnFn ? returnFn() : null;  
+            return returnFn ? returnFn() : null;
           } catch (e) {
             console.error('[Error Handler]',e.stack);
             return returnFn ? returnFn() : null;

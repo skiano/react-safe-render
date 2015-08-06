@@ -12,6 +12,10 @@ require('../index')(React, {
   errorHandler: errorHandler
 });
 
+errorHandler.mockImpl(function (report) {
+  // console.log(report)
+});
+
 function throwIf(name, props) {
   if (props[name]) {throw new Error(name);}
 }
