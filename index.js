@@ -49,6 +49,7 @@ function wrap(spec, original, config, method, returnFn) {
         displayName: original.componentClass.displayName,
         method: method,
         props: this.props,
+        state: this.state,
         error: e
       };
 
