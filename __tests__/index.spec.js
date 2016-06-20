@@ -76,7 +76,7 @@ describe('Safe Render', function () {
 
   it('should catch errors in render', function () {
     errorHandler.mockClear();
-    
+
     TestUtils.renderIntoDocument(<ExampleComponent renderError/>);
 
     expect(errorHandler.mock.calls[0][0]).toEqual({
@@ -85,13 +85,16 @@ describe('Safe Render', function () {
       props: {
         renderError: true
       },
+      state: {
+
+      },
       error: new Error('renderError')
     });
   });
 
   it('should catch errors in componentWillMount', function () {
     errorHandler.mockClear();
-    
+
     TestUtils.renderIntoDocument(<ExampleComponent willMountError/>);
 
     expect(errorHandler).lastCalledWith({
@@ -100,13 +103,16 @@ describe('Safe Render', function () {
       props: {
         willMountError: true
       },
+      state: {
+
+      },
       error: new Error('willMountError')
     });
   });
 
   it('should catch errors in componentWillReceiveProps', function () {
     errorHandler.mockClear();
-    
+
     var stub = TestUtils.renderIntoDocument(<ExampleComponent recievePropsError/>);
 
     stub.setProps({A: true});
@@ -116,6 +122,9 @@ describe('Safe Render', function () {
       method: 'componentWillReceiveProps',
       props: {
         recievePropsError: true
+      },
+      state: {
+
       },
       arguments: [
         {A:true, recievePropsError: true},
@@ -127,7 +136,7 @@ describe('Safe Render', function () {
 
   it('should catch errors in componentDidMount', function () {
     errorHandler.mockClear();
-    
+
     TestUtils.renderIntoDocument(<ExampleComponent didMountError/>);
 
     expect(errorHandler).lastCalledWith({
@@ -136,13 +145,16 @@ describe('Safe Render', function () {
       props: {
         didMountError: true
       },
+      state: {
+
+      },
       error: new Error('didMountError')
     });
   });
 
   it('should catch errors in getInitialState', function () {
     errorHandler.mockClear();
-    
+
     TestUtils.renderIntoDocument(<ExampleComponent stateError/>);
 
     expect(errorHandler).lastCalledWith({
@@ -151,13 +163,14 @@ describe('Safe Render', function () {
       props: {
         stateError: true
       },
+      state: null,
       error: new Error('stateError')
     });
   });
 
   it('should catch errors in shouldComponentUpdate', function () {
     errorHandler.mockClear();
-    
+
     var stub = TestUtils.renderIntoDocument(<ExampleComponent shouldUpdateError/>);
 
     stub.setProps({A: true});
@@ -167,6 +180,9 @@ describe('Safe Render', function () {
       method: 'shouldComponentUpdate',
       props: {
         shouldUpdateError: true
+      },
+      state: {
+
       },
       arguments: [
         {A: true, shouldUpdateError: true},
@@ -179,7 +195,7 @@ describe('Safe Render', function () {
 
   it('should catch errors in componentWillUpdate', function () {
     errorHandler.mockClear();
-    
+
     var stub = TestUtils.renderIntoDocument(<ExampleComponent willUpdateError/>);
 
     stub.setProps({A: true});
@@ -189,6 +205,9 @@ describe('Safe Render', function () {
       method: 'componentWillUpdate',
       props: {
         willUpdateError: true
+      },
+      state: {
+
       },
       arguments: [
         {A: true, willUpdateError: true},
@@ -201,7 +220,7 @@ describe('Safe Render', function () {
 
   it('should catch errors in componentDidUpdate', function () {
     errorHandler.mockClear();
-    
+
     var stub = TestUtils.renderIntoDocument(<ExampleComponent didUpdateError/>);
 
     stub.setProps({A: true});
@@ -212,6 +231,9 @@ describe('Safe Render', function () {
       props: {
         didUpdateError: true,
         A: true
+      },
+      state: {
+
       },
       arguments: [
         {didUpdateError: true},
@@ -224,7 +246,7 @@ describe('Safe Render', function () {
 
   it('should catch errors in componentWillUnmount', function () {
     errorHandler.mockClear();
-    
+
     var node = global.document.createElement('DIV');
     React.render(<ExampleComponent unmountError/>, node);
     React.unmountComponentAtNode(node);
@@ -234,6 +256,9 @@ describe('Safe Render', function () {
       method: 'componentWillUnmount',
       props: {
         unmountError: true
+      },
+      state: {
+
       },
       error: new Error('unmountError')
     });
@@ -252,7 +277,7 @@ describe('Safe Render', function () {
         return <div/>;
       }
     });
-    
+
     expect(function () {
       var node = global.document.createElement('DIV');
       React.render(<NoHandle/>, node);
